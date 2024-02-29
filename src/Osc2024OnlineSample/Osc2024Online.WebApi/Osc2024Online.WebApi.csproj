@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <RootNamespace>Osc2024Online.WebApi</RootNamespace>
+        <UserSecretsId>f995130b-b1df-4c5b-8134-400009bc014d</UserSecretsId>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.2"/>
+        <PackageReference Include="Sekiban.Infrastructure.Cosmos" Version="0.17.8"/>
+        <PackageReference Include="Sekiban.Infrastructure.Postgres" Version="0.17.8-preview"/>
+        <PackageReference Include="Sekiban.Web" Version="0.17.8"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Osc2024Online.Domain\Osc2024Online.Domain.csproj"/>
+    </ItemGroup>
+
+</Project>
