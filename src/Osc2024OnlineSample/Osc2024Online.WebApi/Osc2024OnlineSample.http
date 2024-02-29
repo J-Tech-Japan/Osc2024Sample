@@ -1,0 +1,6 @@
+@Osc2024OnlineSample_HostAddress = http://localhost:5124
+
+GET {{Osc2024OnlineSample_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
