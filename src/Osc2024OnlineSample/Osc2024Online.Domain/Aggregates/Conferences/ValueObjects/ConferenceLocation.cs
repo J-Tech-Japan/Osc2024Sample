@@ -8,7 +8,8 @@ public record ConferenceLocation(
     string Name)
 {
     public static ConferenceLocation Online => FromValue(ConferenceLocationValue.Online);
-    public static ConferenceLocation FromValue(ConferenceLocationValue location) => new(location, GatNameFromValue(location));
+    public static ConferenceLocation FromValue(ConferenceLocationValue location) =>
+        new(location, GatNameFromValue(location));
     public static string GatNameFromValue(ConferenceLocationValue location) => location switch
     {
         ConferenceLocationValue.Online => "オンライン",

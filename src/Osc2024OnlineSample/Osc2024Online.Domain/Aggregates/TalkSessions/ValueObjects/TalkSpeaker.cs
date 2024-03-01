@@ -12,5 +12,9 @@ public record TalkSpeaker(
     [property: MaxLength(50)]
     string Title)
 {
-    public static TalkSpeaker CreateInitialPayload(TalkSpeaker? _) => new(Guid.Empty, string.Empty, string.Empty, string.Empty);
+    public static TalkSpeaker CreateInitialPayload(TalkSpeaker? _) => new(
+        Guid.Empty,
+        string.Empty,
+        string.Empty,
+        string.Empty);
 }

@@ -14,12 +14,15 @@ public class TalkSessionSpec : AggregateTest<TalkSession, OscDependencyDefinitio
     public void CreateTalkSessionSpec()
     {
         var conferenceId = GivenEnvironmentCommand(
-            new CreateConference(
-                new ConferenceId(Guid.NewGuid()),
-                new ConferenceName("Osc2024"),
-                new ConferenceDates.OneDay(new DateTime(2024, 3, 1)),
-                ConferenceLocation.FromValue(ConferenceLocationValue.Online)));
-        WhenCommand(new CreateTalkSession(new ConferenceId(conferenceId), new TalkName("Talk1"), new TalkDescription("Description1")));
+            new CreateOneDayConference(
+                new DateTime(2024, 3, 1),
+                ConferenceLocationValue.Online,
+                "Osc2024"));
+        WhenCommand(
+            new CreateTalkSession(
+                new ConferenceId(conferenceId),
+                new TalkName("Talk1"),
+                new TalkDescription("Description1")));
         ThenPayloadIs(
             new TalkSession(
                 new ConferenceId(conferenceId),
@@ -31,12 +34,15 @@ public class TalkSessionSpec : AggregateTest<TalkSession, OscDependencyDefinitio
     public void AddSpeakerSpec()
     {
         var conferenceId = GivenEnvironmentCommand(
-            new CreateConference(
-                new ConferenceId(Guid.NewGuid()),
-                new ConferenceName("Osc2024"),
-                new ConferenceDates.OneDay(new DateTime(2024, 3, 1)),
-                ConferenceLocation.FromValue(ConferenceLocationValue.Online)));
-        GivenCommand(new CreateTalkSession(new ConferenceId(conferenceId), new TalkName("Talk1"), new TalkDescription("Description1")));
+            new CreateOneDayConference(
+                new DateTime(2024, 3, 1),
+                ConferenceLocationValue.Online,
+                "Osc2024"));
+        GivenCommand(
+            new CreateTalkSession(
+                new ConferenceId(conferenceId),
+                new TalkName("Talk1"),
+                new TalkDescription("Description1")));
         var speaker = new TalkSpeaker(Guid.NewGuid(), "Speaker1", "スピーカーイチ", "CTO");
         WhenCommand(new AddTalkSpeakerForSession(GetAggregateId(), speaker));
         ThenPayloadIs(
@@ -51,12 +57,15 @@ public class TalkSessionSpec : AggregateTest<TalkSession, OscDependencyDefinitio
     public void AddSecondSpeakerSpec()
     {
         var conferenceId = GivenEnvironmentCommand(
-            new CreateConference(
-                new ConferenceId(Guid.NewGuid()),
-                new ConferenceName("Osc2024"),
-                new ConferenceDates.OneDay(new DateTime(2024, 3, 1)),
-                ConferenceLocation.FromValue(ConferenceLocationValue.Online)));
-        GivenCommand(new CreateTalkSession(new ConferenceId(conferenceId), new TalkName("Talk1"), new TalkDescription("Description1")));
+            new CreateOneDayConference(
+                new DateTime(2024, 3, 1),
+                ConferenceLocationValue.Online,
+                "Osc2024"));
+        GivenCommand(
+            new CreateTalkSession(
+                new ConferenceId(conferenceId),
+                new TalkName("Talk1"),
+                new TalkDescription("Description1")));
         var speaker = new TalkSpeaker(Guid.NewGuid(), "Speaker1", "スピーカーイチ", "CTO");
         GivenCommand(new AddTalkSpeakerForSession(GetAggregateId(), speaker));
 
@@ -75,12 +84,15 @@ public class TalkSessionSpec : AggregateTest<TalkSession, OscDependencyDefinitio
     public void UpdateFirstSpeakerSpec()
     {
         var conferenceId = GivenEnvironmentCommand(
-            new CreateConference(
-                new ConferenceId(Guid.NewGuid()),
-                new ConferenceName("Osc2024"),
-                new ConferenceDates.OneDay(new DateTime(2024, 3, 1)),
-                ConferenceLocation.FromValue(ConferenceLocationValue.Online)));
-        GivenCommand(new CreateTalkSession(new ConferenceId(conferenceId), new TalkName("Talk1"), new TalkDescription("Description1")));
+            new CreateOneDayConference(
+                new DateTime(2024, 3, 1),
+                ConferenceLocationValue.Online,
+                "Osc2024"));
+        GivenCommand(
+            new CreateTalkSession(
+                new ConferenceId(conferenceId),
+                new TalkName("Talk1"),
+                new TalkDescription("Description1")));
         var speaker = new TalkSpeaker(Guid.NewGuid(), "Speaker1", "スピーカーイチ", "CTO");
         GivenCommand(new AddTalkSpeakerForSession(GetAggregateId(), speaker));
 
@@ -88,7 +100,8 @@ public class TalkSessionSpec : AggregateTest<TalkSession, OscDependencyDefinitio
         GivenCommand(new AddTalkSpeakerForSession(GetAggregateId(), speaker2));
 
         var speakerEdited = speaker with { Name = "Speaker1Edited" };
-        WhenCommand(new UpdateTalkSpeakerForSession(GetAggregateId(), speakerEdited, "made mistake"));
+        WhenCommand(
+            new UpdateTalkSpeakerForSession(GetAggregateId(), speakerEdited, "made mistake"));
 
         ThenPayloadIs(
             new TalkSession(
@@ -103,19 +116,23 @@ public class TalkSessionSpec : AggregateTest<TalkSession, OscDependencyDefinitio
     public void RemoveFirstSpeakerSpec()
     {
         var conferenceId = GivenEnvironmentCommand(
-            new CreateConference(
-                new ConferenceId(Guid.NewGuid()),
-                new ConferenceName("Osc2024"),
-                new ConferenceDates.OneDay(new DateTime(2024, 3, 1)),
-                ConferenceLocation.FromValue(ConferenceLocationValue.Online)));
-        GivenCommand(new CreateTalkSession(new ConferenceId(conferenceId), new TalkName("Talk1"), new TalkDescription("Description1")));
+            new CreateOneDayConference(
+                new DateTime(2024, 3, 1),
+                ConferenceLocationValue.Online,
+                "Osc2024"));
+        GivenCommand(
+            new CreateTalkSession(
+                new ConferenceId(conferenceId),
+                new TalkName("Talk1"),
+                new TalkDescription("Description1")));
         var speaker = new TalkSpeaker(Guid.NewGuid(), "Speaker1", "スピーカーイチ", "CTO");
         GivenCommand(new AddTalkSpeakerForSession(GetAggregateId(), speaker));
 
         var speaker2 = new TalkSpeaker(Guid.NewGuid(), "Speaker2", "スピーカーニ", "マネージャ");
         GivenCommand(new AddTalkSpeakerForSession(GetAggregateId(), speaker2));
 
-        WhenCommand(new RemoveTalkSpeakerFromSession(GetAggregateId(), speaker.SpeakerId, "made mistake"));
+        WhenCommand(
+            new RemoveTalkSpeakerFromSession(GetAggregateId(), speaker.SpeakerId, "made mistake"));
 
         ThenPayloadIs(
             new TalkSession(
@@ -129,7 +146,11 @@ public class TalkSessionSpec : AggregateTest<TalkSession, OscDependencyDefinitio
     public void CanNotCreateTalkSessionWithoutConferenceSpec()
     {
         var conferenceId = Guid.NewGuid();
-        WhenCommand(new CreateTalkSession(new ConferenceId(conferenceId), new TalkName("Talk1"), new TalkDescription("Description1")));
+        WhenCommand(
+            new CreateTalkSession(
+                new ConferenceId(conferenceId),
+                new TalkName("Talk1"),
+                new TalkDescription("Description1")));
         ThenGetLatestEvents(Assert.Empty);
     }
 }

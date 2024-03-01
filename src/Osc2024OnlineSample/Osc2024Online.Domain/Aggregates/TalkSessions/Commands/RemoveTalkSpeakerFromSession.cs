@@ -3,7 +3,8 @@ using Sekiban.Core.Command;
 using Sekiban.Core.Events;
 namespace Osc2024Online.Domain.Aggregates.TalkSessions.Commands;
 
-public record RemoveTalkSpeakerFromSession(Guid TalkSessionId, Guid TalkSpeakerId, string Note) : ICommand<TalkSession>
+public record RemoveTalkSpeakerFromSession(Guid TalkSessionId, Guid TalkSpeakerId, string Note)
+    : ICommandForExistingAggregate<TalkSession>
 {
     public Guid GetAggregateId() => TalkSessionId;
     public class Handler : ICommandHandler<TalkSession, RemoveTalkSpeakerFromSession>

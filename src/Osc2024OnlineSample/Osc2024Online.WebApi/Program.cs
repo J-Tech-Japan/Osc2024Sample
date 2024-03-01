@@ -7,7 +7,7 @@ using Sekiban.Web.OpenApi.Extensions;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.AddSekibanWithDependency<OscDependencyDefinition>();
-var useCosmos = true;
+var useCosmos = false;
 if (useCosmos)
 {
     builder.AddSekibanCosmosDB();
