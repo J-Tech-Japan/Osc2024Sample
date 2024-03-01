@@ -13,10 +13,13 @@ public class OscDependencyDefinition : DomainDependencyDefinitionBase
     {
         AddAggregate<Conference>()
             .AddCommandHandler<CreateConference, CreateConference.Handler>()
-            .AddCommandHandler<CreateOneDayConference, CreateOneDayConference.Handler>();
+            .AddCommandHandler<CreateOneDayConference, CreateOneDayConference.Handler>()
+            .AddCommandHandler<CreateTwoDayConference, CreateTwoDayConference.Handler>();
 
         AddAggregate<TalkSession>()
             .AddCommandHandler<CreateTalkSession, CreateTalkSession.Handler>()
+            .AddCommandHandler<AddTalkSpeakerForSessionPrimitive,
+                AddTalkSpeakerForSessionPrimitive.Handler>()
             .AddCommandHandler<AddTalkSpeakerForSession, AddTalkSpeakerForSession.Handler>()
             .AddCommandHandler<RemoveTalkSpeakerFromSession, RemoveTalkSpeakerFromSession.Handler>()
             .AddCommandHandler<UpdateTalkSpeakerForSession, UpdateTalkSpeakerForSession.Handler>();

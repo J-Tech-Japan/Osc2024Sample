@@ -4,7 +4,8 @@ using Sekiban.Core.Command;
 using Sekiban.Core.Events;
 namespace Osc2024Online.Domain.Aggregates.TalkSessions.Commands;
 
-public record UpdateTalkSpeakerForSession(Guid TalkSessionId, TalkSpeaker Speaker, string Note) : ICommand<TalkSession>
+public record UpdateTalkSpeakerForSession(Guid TalkSessionId, TalkSpeaker Speaker, string Note)
+    : ICommandForExistingAggregate<TalkSession>
 {
     public Guid GetAggregateId() => TalkSessionId;
     public class Handler : ICommandHandler<TalkSession, UpdateTalkSpeakerForSession>
